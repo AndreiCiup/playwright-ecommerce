@@ -1,6 +1,19 @@
 trigger: none
-
 pr: none
+
+parameters:
+  - name: tags
+    displayName: 'Test tags to run'
+    type: string
+    default: ''
+    values:
+      - ''
+      - '@smoke'
+      - '@auth'
+      - '@products'
+      - '@cart'
+      - '@checkout'
+      - '@e2e'
 
 pool:
   vmImage: ubuntu-latest
@@ -17,7 +30,12 @@ steps:
   - script: npx playwright install --with-deps
     displayName: 'Install Playwright browsers'
 
-  - script: npx playwright test
+  - script: |
+      if [ -z "${{ parameters.tags }}" ]; then
+        npx playwright test
+      else
+        npx playwright test --grep "${{ parameters.tags }}"
+      fi
     displayName: 'Run Playwright tests'
     continueOnError: true
 

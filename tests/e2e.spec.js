@@ -4,7 +4,7 @@ import { InventoryPage } from '../pages/InventoryPage.js';
 import { CartPage } from '../pages/CartPage.js';
 import { CheckoutPage } from '../pages/CheckoutPage.js';
 
-test('complete purchase journey — standard user', async ({ page }) => {
+test('complete purchase journey — standard user @smoke @e2e', async ({ page }) => {
   const login = new LoginPage(page);
   await login.goto();
   await login.loginAs('standard_user', 'secret_sauce');

@@ -12,27 +12,27 @@ test.describe('Checkout flow', () => {
     await cart.proceedToCheckout();
   });
 
-  test('checkout requires all fields', async ({ loggedInPage }) => {
+  test('checkout requires all fields @checkout', async ({ loggedInPage }) => {
     const checkout = new CheckoutPage(loggedInPage);
     await checkout.continue();
     await expect(loggedInPage.locator('[data-test="error"]')).toBeVisible();
   });
 
-  test('valid details advance to step two', async ({ loggedInPage }) => {
+  test('valid details advance to step two @smoke @checkout', async ({ loggedInPage }) => {
     const checkout = new CheckoutPage(loggedInPage);
     await checkout.fillInfo('John', 'Doe', '12345');
     await checkout.continue();
     await expect(loggedInPage).toHaveURL(/checkout-step-two/);
   });
 
-  test('order summary shows correct item', async ({ loggedInPage }) => {
+  test('order summary shows correct item @checkout', async ({ loggedInPage }) => {
     const checkout = new CheckoutPage(loggedInPage);
     await checkout.fillInfo('John', 'Doe', '12345');
     await checkout.continue();
     await expect(loggedInPage.locator('.inventory_item_name')).toHaveText('Sauce Labs Backpack');
   });
 
-  test('completing order shows confirmation', async ({ loggedInPage }) => {
+  test('completing order shows confirmation @smoke @checkout', async ({ loggedInPage }) => {
     const checkout = new CheckoutPage(loggedInPage);
     await checkout.fillInfo('John', 'Doe', '12345');
     await checkout.continue();

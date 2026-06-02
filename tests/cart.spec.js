@@ -3,18 +3,18 @@ import { CartPage } from '../pages/CartPage.js';
 import { InventoryPage } from '../pages/InventoryPage.js';
 
 test.describe('Shopping cart', () => {
-  test('add one item updates badge to 1', async ({ inventoryPage }) => {
+  test('add one item updates badge to 1 @smoke @cart', async ({ inventoryPage }) => {
     await inventoryPage.addItemByName('Sauce Labs Backpack');
     expect(await inventoryPage.getCartCount()).toBe(1);
   });
 
-  test('add two items updates badge to 2', async ({ inventoryPage }) => {
+  test('add two items updates badge to 2 @cart', async ({ inventoryPage }) => {
     await inventoryPage.addItemByName('Sauce Labs Backpack');
     await inventoryPage.addItemByName('Sauce Labs Bike Light');
     expect(await inventoryPage.getCartCount()).toBe(2);
   });
 
-  test('cart contains added items', async ({ loggedInPage }) => {
+  test('cart contains added items @cart', async ({ loggedInPage }) => {
     const inventory = new InventoryPage(loggedInPage);
     await inventory.addItemByName('Sauce Labs Backpack');
     await inventory.addItemByName('Sauce Labs Fleece Jacket');
@@ -25,14 +25,14 @@ test.describe('Shopping cart', () => {
     expect(names).toContain('Sauce Labs Fleece Jacket');
   });
 
-  test('removing item decrements badge', async ({ inventoryPage }) => {
+  test('removing item decrements badge @cart', async ({ inventoryPage }) => {
     await inventoryPage.addItemByName('Sauce Labs Backpack');
     await inventoryPage.addItemByName('Sauce Labs Bike Light');
     await inventoryPage.removeItemByName('Sauce Labs Backpack');
     expect(await inventoryPage.getCartCount()).toBe(1);
   });
 
-  test('remove item from cart page removes it from list', async ({ loggedInPage }) => {
+  test('remove item from cart page removes it from list @cart', async ({ loggedInPage }) => {
     const inventory = new InventoryPage(loggedInPage);
     await inventory.addItemByName('Sauce Labs Backpack');
     const cart = new CartPage(loggedInPage);
@@ -41,7 +41,7 @@ test.describe('Shopping cart', () => {
     expect(await cart.getItemCount()).toBe(0);
   });
 
-  test('empty cart has no badge visible', async ({ loggedInPage }) => {
+  test('empty cart has no badge visible @cart', async ({ loggedInPage }) => {
     await expect(loggedInPage.locator('.shopping_cart_badge')).toBeHidden();
   });
 });

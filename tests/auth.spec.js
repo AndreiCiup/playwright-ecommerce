@@ -11,35 +11,35 @@ test.describe('Authentication', () => {
     await loginPage.goto();
   });
 
-  test('standard user can log in successfully', async ({ page }) => {
+  test('standard user can log in successfully @smoke @auth', async ({ page }) => {
     await loginPage.loginAs(USERS.standard.username, USERS.standard.password);
     await expect(page).toHaveURL(/inventory/);
     await expect(page.locator('.inventory_list')).toBeVisible();
   });
 
-  test('locked out user sees correct error', async () => {
+  test('locked out user sees correct error @auth', async () => {
     await loginPage.attemptLogin(USERS.locked.username, USERS.locked.password);
     const error = await loginPage.getErrorMessage();
     expect(error).toContain(MESSAGES.lockedError);
   });
 
-  test('wrong credentials show error message', async () => {
+  test('wrong credentials show error message @auth', async () => {
     await loginPage.attemptLogin('wrong_user', 'wrong_pass');
     const error = await loginPage.getErrorMessage();
     expect(error).toContain(MESSAGES.loginError);
   });
 
-  test('empty username shows validation error', async () => {
+  test('empty username shows validation error @auth', async () => {
     await loginPage.attemptLogin('', USERS.standard.password);
     await expect(loginPage.errorMessage).toBeVisible();
   });
 
-  test('empty password shows validation error', async () => {
+  test('empty password shows validation error @auth', async () => {
     await loginPage.attemptLogin(USERS.standard.username, '');
     await expect(loginPage.errorMessage).toBeVisible();
   });
 
-  test('user can log out and is redirected to login', async ({ page }) => {
+  test('user can log out and is redirected to login @smoke @auth', async ({ page }) => {
     await loginPage.loginAs(USERS.standard.username, USERS.standard.password);
     const inventory = new InventoryPage(page);
     await inventory.logout();
@@ -47,7 +47,7 @@ test.describe('Authentication', () => {
     await expect(loginPage.loginButton).toBeVisible();
   });
 
-  test('logged-out user cannot access inventory directly', async ({ page }) => {
+  test('logged-out user cannot access inventory directly @auth', async ({ page }) => {
     await page.goto('/inventory.html');
     await expect(page).toHaveURL('/');
   });
