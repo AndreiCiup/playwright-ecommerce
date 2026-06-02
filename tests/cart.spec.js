@@ -42,6 +42,6 @@ test.describe('Shopping cart', () => {
   });
 
   test('empty cart has no badge visible', async ({ loggedInPage }) => {
-    await expect(loggedInPage.locator('.shopping_cart_badge')).not.toBeVisible();
+    await expect(loggedInPage.locator('.shopping_cart_badge')).toBeHidden();
   });
 });

@@ -5,6 +5,7 @@ import { USERS, MESSAGES } from '../utils/testData.js';
 
 test.describe('Authentication', () => {
   let loginPage;
+
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     await loginPage.goto();

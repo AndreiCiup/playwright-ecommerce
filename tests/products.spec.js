@@ -3,8 +3,7 @@ import { SORT } from '../utils/testData.js';
 
 test.describe('Product inventory', () => {
   test('displays 6 products after login', async ({ inventoryPage }) => {
-    const count = await inventoryPage.productItems.count();
-    expect(count).toBe(6);
+    await expect(inventoryPage.productItems).toHaveCount(6);
   });
 
   test('sort by price low to high', async ({ inventoryPage }) => {

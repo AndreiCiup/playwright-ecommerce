@@ -4,6 +4,13 @@ import playwright from 'eslint-plugin-playwright';
 export default [
   js.configs.recommended,
   {
+    languageOptions: {
+      globals: {
+        process: 'readonly',
+      },
+    },
+  },
+  {
     ...playwright.configs['flat/recommended'],
     files: ['tests/**/*.js', 'fixtures/**/*.js'],
     rules: {
