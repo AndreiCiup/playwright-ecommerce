@@ -9,6 +9,7 @@ variables:
   - name: tags
     displayName: 'Test tags to run (e.g. @smoke, @auth, leave empty for all)'
     default: ''
+    settableAtQueueTime: true
 
 steps:
   - task: NodeTool@0
