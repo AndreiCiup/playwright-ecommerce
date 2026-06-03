@@ -2,22 +2,13 @@
 trigger: none
 pr: none
 
-parameters:
-  - name: tags
-    displayName: 'Test tags to run'
-    type: string
-    default: ''
-    values:
-      - ''
-      - '@smoke'
-      - '@auth'
-      - '@products'
-      - '@cart'
-      - '@checkout'
-      - '@e2e'
-
 pool:
   vmImage: ubuntu-latest
+
+variables:
+  - name: tags
+    displayName: 'Test tags to run (e.g. @smoke, @auth, leave empty for all)'
+    default: ''
 
 steps:
   - task: NodeTool@0
@@ -32,10 +23,10 @@ steps:
     displayName: 'Install Playwright browsers'
 
   - script: |
-      if [ -z "${{ parameters.tags }}" ]; then
+      if [ -z "$(tags)" ]; then
         npx playwright test
       else
-        npx playwright test --grep "${{ parameters.tags }}"
+        npx playwright test --grep "$(tags)"
       fi
     displayName: 'Run Playwright tests'
     continueOnError: true
