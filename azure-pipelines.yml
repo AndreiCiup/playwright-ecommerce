@@ -6,10 +6,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  - name: tags
-    displayName: 'Test tags to run (e.g. @smoke, @auth, leave empty for all)'
-    default: ''
-    settableAtQueueTime: true
+  tags: ''
 
 steps:
   - task: NodeTool@0
